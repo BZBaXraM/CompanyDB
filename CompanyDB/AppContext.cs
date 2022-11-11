@@ -2,14 +2,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyDB;
 
-public class AppContext : DbContext
+public sealed class AppContext : DbContext
 {
-    public DbSet<MyCompany>? Companies { get; set; }
+    public DbSet<Company>? Companies { get; set; }
+    public DbSet<Employees>? Employees { get; set; }
+    public DbSet<Salaries>? Salaries { get; set; }
 
     public AppContext()
     {
-        //Database.EnsureDeleted();
-        //Database.EnsureCreated();
+        // Database.EnsureDeleted();
+        // Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,6 +23,8 @@ public class AppContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Fluent Api
-        modelBuilder.Entity<MyCompany>().ToTable("Companies");
+        modelBuilder.Entity<Company>().ToTable("Companies");
+        modelBuilder.Entity<Employees>().ToTable("Employees");
+        modelBuilder.Entity<Salaries>().ToTable("Salaries");
     }
 }
